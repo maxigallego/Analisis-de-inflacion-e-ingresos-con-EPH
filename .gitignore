@@ -1,0 +1,12 @@
+# input data (public sources, see README) and Stata intermediates
+data/*
+!data/.gitkeep
+*.dta
+*.smcl
+.Rhistory
+.RData
+.Rproj.user/
+figuras_R/
+.DS_Store
+Thumbs.db
+~$*

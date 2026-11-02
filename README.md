@@ -1,36 +1,44 @@
-Informe elaborado para la Maestría en Economía Aplicada de la Universidad 
-de Buenos Aires. El trabajo se divide en dos ejes:
+# Inflation and Labor Income — Stata & R
 
-1. **Análisis inflacionario** comparado entre Colombia, México y Perú
-2. **Análisis de ingresos laborales** en Argentina para el tercer trimestre de 2025
+Two-part empirical report for the M.Sc. in Applied Economics (Universidad de Buenos Aires):
 
-## Fuentes de datos
+1. **Inflation dynamics and targets** in Colombia, Mexico and Peru, including the relationship with M2.
+2. **Labor income in Argentina** by region and establishment size, using the EPH (3rd quarter 2025).
 
-### Inflación
-- **CEPAL** — Base de datos de precios al consumidor para América Latina y el Caribe  
-  https://statistics.cepal.org/portal/cepalstat
+Estimation and cleaning in Stata; figures in R (`ggplot2`). The report is in Spanish: [`Informe_Dual_Abril_2026.pdf`](Informe_Dual_Abril_2026.pdf).
 
-### Ingresos laborales — Argentina
-- **EPH (Encuesta Permanente de Hogares) — INDEC**, 3° trimestre 2025  
-  https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos  
-  Base utilizada: `usu_individual_T325.txt` (base individual)
+<p align="center">
+  <img src="figuras/scatter_inflacion_m2.png" width="640" alt="Scatter plot of inflation against M2">
+</p>
 
-> Los microdatos no están incluidos en este repositorio. Deben descargarse 
-> directamente desde los sitios oficiales indicados.
+## Contenido
 
-## Contenido del repositorio
+```
+├── code/
+│   ├── inflacion_eph.do      # Stata: limpieza, estadísticas y gráficos (inflación, M2, EPH)
+│   └── graficos_r.R          # R: réplica y mejora de los gráficos
+├── figuras/                  # gráficos incluidos en el informe
+├── data/                     # bases de entrada (no incluidas; ver abajo)
+└── Informe_Dual_Abril_2026.pdf
+```
 
-| Archivo | Descripción |
+## Datos
+
+Los microdatos no se incluyen en el repositorio: descargarlos de las fuentes oficiales y guardarlos en `data/`.
+
+| Archivo en `data/` | Fuente |
 |---|---|
-| `InflaciónyEPH.do` | Código completo de análisis en Stata |
-| `graficosR.R` | Código de visualizaciones en R |
-| `barras_region_tamano.png` | Ingresos por región y tamaño de establecimiento |
-| `boxplot_ajustado.png` | Distribución de ingresos ajustada |
-| `scatter_inflacion_m2.png` | Dispersión inflación vs. M2 |
-| `scatter_m2_quiebre.png` | M2 con quiebre estructural |
-| `trayectoria_peru_m2.png` | Trayectoria de M2 en Perú |
+| `Datos_Infla.xlsx` | CEPAL — precios al consumidor, América Latina y el Caribe ([CEPALSTAT](https://statistics.cepal.org/portal/cepalstat)) |
+| `Datos_M2.xlsx` | Serie de M2 de los tres países |
+| `usu_individual_T325.txt` | INDEC — EPH, base usuaria individual, 3.er trimestre 2025 ([INDEC](https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos)) |
 
-## Requisitos
+## Cómo reproducir
 
-- **Stata** (v14 o superior) — análisis econométrico y EPH
-- **R** — visualizaciones (ver `graficosR.R` para los paquetes utilizados)
+Desde la **raíz del repositorio**:
+
+- **Stata** (v14 o superior): `do code/inflacion_eph.do`. El script entra a `data/`, genera las bases intermedias allí y guarda los gráficos en `figuras/`.
+- **R**: `Rscript code/graficos_r.R`. Paquetes: `tidyverse`, `readxl`, `scales`, `lubridate`, `ggthemes`, `haven`. Los gráficos se guardan en `figuras_R/`.
+
+## Licencia
+
+Código: [MIT](LICENSE). El informe es del autor, todos los derechos reservados. Los datos pertenecen a sus proveedores y están sujetos a sus términos de uso.
